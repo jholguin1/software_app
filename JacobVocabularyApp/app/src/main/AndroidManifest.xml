@@ -17,6 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".setContentViewActivity"></activity>
+        <activity android:name=".ActivityVocabulary"></activity>
+        <activity android:name=".XmlVocabulary"></activity>
+        <activity android:name=".IntentVocabulary"></activity>
+        <activity android:name=".onClickListenerVocabulary"></activity>
+        <activity android:name=".onCreateVocabulary"></activity>
     </application>
 
 </manifest>
