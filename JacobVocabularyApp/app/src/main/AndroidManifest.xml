@@ -16,12 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".setContentViewActivity"></activity>
-        <activity android:name=".ActivityVocabulary"></activity>
-        <activity android:name=".XmlVocabulary"></activity>
-        <activity android:name=".IntentVocabulary"></activity>
-        <activity android:name=".onClickListenerVocabulary"></activity>
-        <activity android:name=".onCreateVocabulary"></activity>
+        <activity android:name=".setContentViewActivity" />
+        <activity android:name=".ActivityVocabulary" />
+        <activity android:name=".XmlVocabulary" />
+        <activity android:name=".IntentVocabulary" />
+        <activity android:name=".onClickListenerVocabulary" />
+        <activity android:name=".onCreateVocabulary" />
+        <activity android:name=".onClick"></activity>
+
     </application>
 
 </manifest>

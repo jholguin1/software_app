@@ -58,24 +58,6 @@
         app:layout_constraintVertical_bias="0.828" />
 
     <Button
-        android:id="@+id/onClickBtn"
-        android:layout_width="137dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="onClick"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
-
-    <Button
         android:id="@+id/methodBtn"
         android:layout_width="137dp"
         android:layout_height="70dp"
@@ -128,24 +110,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.173" />
-
-    <Button
-        android:id="@+id/clickListenerBtn"
-        android:layout_width="137dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="onClickListener"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
 
     <Button
         android:id="@+id/findViewBtn"
@@ -212,5 +176,29 @@
             android:textAlignment="viewStart"
             android:textSize="12sp" />
     </RadioGroup>
+
+    <ToggleButton
+        android:id="@+id/onClickTBtn"
+        android:layout_width="136dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="ToggleButton"
+        android:textOff="onClick"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <ToggleButton
+        android:id="@+id/onClickListenerTB"
+        android:layout_width="136dp"
+        android:layout_height="71dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="ToggleButton"
+        android:textOff="onClickListener"
+        android:textOn="Going"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="290dp" />
 
 </android.support.constraint.ConstraintLayout>
