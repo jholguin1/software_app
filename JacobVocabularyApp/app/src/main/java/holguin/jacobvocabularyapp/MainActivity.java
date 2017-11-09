@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener());
+
         onClickListenerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
