@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="holguin.jacobmusicapp.MainActivity">
+    tools:context="holguin.jacobmusicapp.MainActivity"
+    android:background="#7575a3">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="167dp"
-        android:layout_height="125dp"
-        android:text="Play Music!"
+        android:layout_width="298dp"
+        android:layout_height="110dp"
+        android:text="Play: Numb by Linkin Park"
         android:textAlignment="center"
+        android:textColor="@android:color/background_light"
         android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01"
-        app:layout_constraintHorizontal_bias="0.502" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <ToggleButton
         android:id="@+id/toggleButton"
@@ -27,25 +28,39 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="ToggleButton"
-        android:textOff="Paused..."
+        android:textOff="Paused"
         android:textOn="Playing..."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.613"
-        tools:layout_editor_absoluteY="277dp" />
+        app:layout_constraintVertical_bias="0.735" />
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="200dp"
-        android:layout_height="29dp"
+        android:layout_width="262dp"
+        android:layout_height="39dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintVertical_bias="0.857"
+        tools:layout_editor_absoluteY="402dp"
+        tools:layout_editor_absoluteX="60dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="268dp"
+        android:layout_height="189dp"
+        app:srcCompat="@drawable/numb"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.336" />
 
 </android.support.constraint.ConstraintLayout>

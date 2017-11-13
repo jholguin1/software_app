@@ -21,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.numb);
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         playBtn = (ToggleButton)findViewById(R.id.toggleButton);
+        seekBar.setProgress(100);
 
         playBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(playBtn.isChecked()) {
+                if(b) {
                     mediaPlayer.start();
                 }
                 else {
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                float progress = (float) i/100;
+                mediaPlayer.setVolume(progress, progress);
             }
 
             @Override
