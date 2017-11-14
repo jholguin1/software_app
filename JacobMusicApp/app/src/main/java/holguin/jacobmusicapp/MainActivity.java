@@ -18,20 +18,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.numb);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.numb); //mediaPlayer plays the file numb
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         playBtn = (ToggleButton)findViewById(R.id.toggleButton);
-        seekBar.setProgress(100);
+        seekBar.setProgress(100); //seekBar is at 100 by default
 
         playBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b) {
-                    mediaPlayer.start();
+                    mediaPlayer.start(); //when turned on it plays
                 }
                 else {
-                    mediaPlayer.pause();
-                    //mediaPlayer.release();
+                    mediaPlayer.pause(); //when turned off it doesn't continue
 
                 }
             }
@@ -40,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                float progress = (float) i/100;
-                mediaPlayer.setVolume(progress, progress);
+                float progress = (float) i/100;     //translate the data into float to use in mediaPlayer.setVolume
+                mediaPlayer.setVolume(progress, progress);      //changes the volume in the left and right ears
             }
 
             @Override
