@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                float progress = (float) i/100;     //translate the data into float to use in mediaPlayer.setVolume
-                mediaPlayer.setVolume(progress, progress);      //changes the volume in the left and right ears
+                mediaPlayer.seekTo(i, MediaPlayer.SEEK_CLOSEST);
+//                float progress = (float) i/100;     //translate the data into float to use in mediaPlayer.setVolume
+//                mediaPlayer.setVolume(progress, progress);      //changes the volume in the left and right ears
             }
 
             @Override
