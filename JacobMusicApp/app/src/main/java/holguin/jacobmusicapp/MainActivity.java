@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
         progressBar.setProgress(mediaPlayer.getCurrentPosition());
-        progressHandler.postDelayed(run, 1000);
+
 
     }
 }
