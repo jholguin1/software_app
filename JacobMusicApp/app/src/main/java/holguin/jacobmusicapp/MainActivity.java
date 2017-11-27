@@ -1,7 +1,6 @@
 package holguin.jacobmusicapp;
 
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -9,11 +8,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class MainActivity extends AppCompatActivity implements Runnable{
+public class MainActivity extends AppCompatActivity{
 
     ToggleButton playBtn;
     MediaPlayer mediaPlayer;
-    Handler progressHandler = new Handler();
     SeekBar volumeBar;
     SeekBar progressBar;
     TextView title;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         progressBar = (SeekBar) findViewById(R.id.progressBar);
         playBtn = (ToggleButton)findViewById(R.id.toggleButton);
         volumeBar.setProgress(100); //volumeBar is at 100 by default
-        progressBar.setMax(mediaPlayer.getDuration()); //sets the progressBar maximum to the duration of the song.
+        progressBar.setMax(mediaPlayer.getDuration()); //sets the progressBar maximum to the duration of the song. -----------
 
         playBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -70,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mediaPlayer.seekTo(i, MediaPlayer.SEEK_CLOSEST_SYNC);
+                if(b) {
+                    mediaPlayer.seekTo(i, MediaPlayer.SEEK_CLOSEST_SYNC);
+                }
             }
 
             @Override
@@ -84,12 +84,27 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             }
         });
 
+        Thread t = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setProgress(mediaPlayer.getCurrentPosition());
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        t.start();
+
     }
 
-    @Override
-    public void run() {
-        progressBar.setProgress(mediaPlayer.getCurrentPosition());
-
-
-    }
 }
