@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VideoPlayerAppJacob</string>
+    <string name="video_player_app">Video Player App</string>
+    <string name="progress">Progress:</string>
+    <string name="videoplayerapp">videoplayerapp</string>
+    <string name="volume">Volume:</string>
 </resources>
