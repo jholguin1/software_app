@@ -7,11 +7,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SensorManager sensorManager;
     Sensor accelerometer;
+    TextView title;
+    TextView valueText;
 
 
     @Override
@@ -23,15 +26,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener()
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
+        title = (TextView)findViewById(R.id.titleText);
+        valueText = (TextView)findViewById(R.id.valueText);
 
 
     }
 
-
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+        valueText.setText("Sensor Value Changed");
 
     }
 
