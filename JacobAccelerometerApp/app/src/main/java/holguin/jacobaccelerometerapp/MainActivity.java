@@ -1,6 +1,7 @@
 package holguin.jacobaccelerometerapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor accelerometer;
     TextView title;
     TextView valueText;
+    double x, y, z;
+
 
 
     @Override
@@ -32,11 +35,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         valueText = (TextView)findViewById(R.id.valueText);
 
 
+
+
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        valueText.setText("Sensor Value Changed");
+        if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            x = sensorEvent.values[0];
+            y = sensorEvent.values[1];
+            z  = sensorEvent.values[2];
+            if((x > 3) || (Math.abs(y - 9.81) > 3) || (z > 3)){
+                valueText.setTextColor(Color.parseColor("#000000"));
+            }
+            else{
+                valueText.setTextColor(Color.parseColor("#CCCCCC"));
+            }
+        }
 
     }
 
