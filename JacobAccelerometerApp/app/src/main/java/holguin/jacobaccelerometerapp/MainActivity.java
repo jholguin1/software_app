@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            x = sensorEvent.values[0];
-            y = sensorEvent.values[1];
-            z  = sensorEvent.values[2];
-            if((x > 3) || (Math.abs(y - 9.81) > 3) || (z > 3)){
+            x = Math.abs(sensorEvent.values[0]);
+            y = Math.abs(sensorEvent.values[1]);
+            z = Math.abs(sensorEvent.values[0]);
+            if((x > 3) || (y - 9.81 > 3) || (z > 3)){
                 valueText.setTextColor(Color.parseColor("#000000"));
             }
             else{
