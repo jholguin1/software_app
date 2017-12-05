@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         volumeText = (TextView)findViewById(R.id.textVolume);
         progressText = (TextView)findViewById(R.id.textProgress);
 
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.video); //declaring audio and visual elements ... giving video file path
+        //mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.video); //declaring audio and visual elements ... giving video file path
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVideoPath(String.valueOf(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video))); //giving video file path
         progressBar = (SeekBar)findViewById(R.id.progressBar);
         progressBar.setMax(mediaPlayer.getDuration());
 
-        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE); //giving the manager
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE); //giving the manager audio service
         volumeBar = (SeekBar)findViewById(R.id.volumeBar);
         volumeBar.setProgress(100);
         volumeBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
