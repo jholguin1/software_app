@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         title = (TextView)findViewById(R.id.titleText);
         videoView = (VideoView)findViewById(R.id.videoView);
         videoView.setVideoPath(String.valueOf(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video))); //giving video file path
+
+
         mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
