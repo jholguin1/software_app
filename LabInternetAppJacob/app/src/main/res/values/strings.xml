@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LabInternetAppJacob</string>
+
+    <string-array name="webpages">
+        <item >Google.com</item>
+        <item >Twitter.com</item>
+        <item >Google.cps.edu</item>
+    </string-array>
 </resources>
