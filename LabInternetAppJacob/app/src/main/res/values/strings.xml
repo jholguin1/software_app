@@ -2,8 +2,9 @@
     <string name="app_name">LabInternetAppJacob</string>
 
     <string-array name="webpages">
-        <item>Yahoo.com</item>
+        <item>Select Item</item>
+        <item>Google.com</item>
         <item>Twitter.com</item>
-        <item>Google.cps.edu</item>
+        <item>Yahoo.com</item>
     </string-array>
 </resources>
