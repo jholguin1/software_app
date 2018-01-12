@@ -33,12 +33,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //sets this activity's FusedLocationProviderClient
-        textView = (TextView)findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.textView);
+        textView.setText("Latitude: \nLongitude: " );
 
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) { //checks to see if the permission is granted
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) { //checks to see if the permission is granted
-
+            ActivityCompat.requestPermissions(this, new String[]{ //if not granted then request permissions
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION }, 33);
+            return;
+        } else
+        {
             fusedLocationClient.getLastLocation() //using the getLastLocation Method
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() { //program the OnSuccessListener after the permission check and on the getLastLocation.
                         @Override
@@ -46,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(Location location) { //results of the successes
                             // Got last known location. In some rare situations this can be null.
 
-                            textView.setText();
                             if (location != null) {
                                 // Logic to handle location object
+                                textView.setText("Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude());
+
+                            } else
+                            {
+                                textView.setText("Latitude: null\nLongitude: null");
+
                             }
                         }
                     });
-            return;
         }
     }
 
@@ -88,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         // and check the result in onActivityResult().
                         ResolvableApiException resolvable = (ResolvableApiException) e;
                         resolvable.startResolutionForResult(MainActivity.this,
-                                REQUEST_CHECK_SETTINGS);
+                                0x1);
                     } catch (IntentSender.SendIntentException sendEx) {
                         // Ignore the error.
                     }
