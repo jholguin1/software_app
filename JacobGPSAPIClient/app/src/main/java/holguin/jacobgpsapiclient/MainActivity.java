@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient; //import statements
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -23,8 +24,11 @@ import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient fusedLocationClient; //makes a Fused Location Provider Client manages the location and gives the best location according to our needs.
-
+    private FusedLocationProviderClient mFusedLocationClient; //makes a Fused Location Provider Client manages the location and gives the best location according to our needs.
+    private LocationCallback mLocationCallback;
+    LocationSettingsRequest mLocationSettingRequest;
+    boolean mRequestingLocationUpdates = false;
+    LocationRequest 
     TextView textView;
 
     @Override
@@ -32,39 +36,76 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //sets this activity's FusedLocationProviderClient
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //sets this activity's FusedLocationProviderClient
         textView = (TextView) findViewById(R.id.textView);
-        textView.setText("Latitude: \nLongitude: " );
+        textView.setText("Latitude: \nLongitude: ");
 
+        createLocationRequest();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) { //checks to see if the permission is granted
 
             ActivityCompat.requestPermissions(this, new String[]{ //if not granted then request permissions
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION }, 33);
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 33);
             return;
-        } else
-        {
-            fusedLocationClient.getLastLocation() //using the getLastLocation Method
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() { //program the OnSuccessListener after the permission check and on the getLastLocation.
-                        @Override
-                        // the OnSuccessListener listens for the success to come out
-                        public void onSuccess(Location location) { //results of the successes
-                            // Got last known location. In some rare situations this can be null.
-
-                            if (location != null) {
-                                // Logic to handle location object
-                                textView.setText("Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude());
-
-                            } else
-                            {
-                                textView.setText("Latitude: null\nLongitude: null");
-
-                            }
-                        }
-                    });
         }
+
+        mFusedLocationClient.getLastLocation() //using the getLastLocation Method
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() { //program the OnSuccessListener after the permission check and on the getLastLocation.
+                    @Override
+                    // the OnSuccessListener listens for the success to come out
+                    public void onSuccess(Location location) { //results of the successes
+                        // Got last known location. In some rare situations this can be null.
+
+                        if (location != null) {
+                            // Logic to handle location object
+                            textView.setText("Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude());
+
+                        }
+                    }
+                });
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationRequest locationResult) {
+                for (Location location : locationResult.getLocations()) {
+                    // Update UI with location data
+                    // ...
+                }
+            }
+
+            ;
+        };
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
     protected void createLocationRequest() {
@@ -106,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 
