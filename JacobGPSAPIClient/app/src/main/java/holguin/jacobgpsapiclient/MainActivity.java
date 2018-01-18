@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private LocationCallback mLocationCallback;
     LocationSettingsRequest mLocationSettingRequest;
     boolean mRequestingLocationUpdates = false;
-    LocationRequest 
     TextView textView;
 
     @Override
