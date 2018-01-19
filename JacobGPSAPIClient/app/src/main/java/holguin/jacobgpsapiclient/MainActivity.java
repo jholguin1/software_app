@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient; //makes a Fused Location Provider Client manages the location and gives the best location according to our needs.
     private LocationCallback mLocationCallback;
     LocationSettingsRequest mLocationSettingRequest;
+    protected Location mLastLocation;
+    private AddressResultReceiver mResultReceiver;
     boolean mRequestingLocationUpdates = false;
     TextView textView;
 
@@ -73,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     // ...
                 }
             }
-
-            ;
         };
 
     }
@@ -105,6 +105,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopLocationUpdates() {
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("REQUESTING_LOCATION_UPDATES_KEY",
+                mRequestingLocationUpdates);
+        // ...
+        super.onSaveInstanceState(outState);
+    }
+
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        // Update the value of mRequestingLocationUpdates from the Bundle.
+        if (savedInstanceState.keySet().contains("REQUESTING_LOCATION_UPDATES_KEY")) {
+            mRequestingLocationUpdates = savedInstanceState.getBoolean(
+                    "REQUESTING_LOCATION_UPDATES_KEY");
+        }
+
+        // ...
+
+        // Update UI to match restored state
+        updateUI();
     }
 
     protected void createLocationRequest() {
@@ -147,6 +168,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        protected void startIntentService() {
+            Intent intent = new Intent(this, FetchAddressIntentService.class);
+            intent.putExtra(Constants.RECEIVER, mResultReceiver);
+            intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+            startService(intent);
+        }
 
     }
 
