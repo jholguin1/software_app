@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="holguin.jacobpasswordcrackerproject.MainActivity">
+    tools:context="holguin.jacobpasswordcrackerproject.MainActivity"
+    android:b>
 
     <TextView
         android:id="@+id/titleText"
@@ -21,7 +22,7 @@
         app:layout_constraintVertical_bias="0.066" />
 
     <TextView
-        android:id="@+id/infoTextView"
+        android:id="@+id/userInputText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
