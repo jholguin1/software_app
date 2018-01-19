@@ -8,4 +8,5 @@
     <string name="password_strength_strong">Password Strength: strong</string>
     <string name="password_used_quite_often">Password used: Quite Often</string>
     <string name="try_another_password">Try Another Password!</string>
+
 </resources>
