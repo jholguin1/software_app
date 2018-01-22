@@ -23,8 +23,8 @@ import java.util.Locale;
 public class FetchAddressIntentService extends IntentService {
     protected ResultReceiver mReceiver;
 
-    public FetchAddressIntentService(String name) { //To get rid of the "No default constructor error.
-        super(name);
+    public FetchAddressIntentService() { //To get rid of the "No default constructor error.
+        super("name");
     }
 
     @Override

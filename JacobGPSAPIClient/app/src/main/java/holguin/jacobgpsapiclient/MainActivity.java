@@ -67,15 +67,13 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         mLocationCallback = new LocationCallback() { //creating callback
-            @Override
-            public void onLocationResult(LocationRequest locationResult) {
-                for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
-                }
-            }
-
-            ;
+//            @Override
+//            public void onLocationResult(LocationRequest locationResult) {
+//                for (Location location : locationResult.getLocations()) {
+//                    // Update UI with location data
+//                    // ...
+//                }
+//            }
         };
 
     }
