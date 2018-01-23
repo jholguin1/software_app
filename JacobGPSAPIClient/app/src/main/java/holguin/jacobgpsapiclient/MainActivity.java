@@ -27,8 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient; //makes a Fused Location Provider Client manages the location and gives the best location according to our needs.
     private LocationCallback mLocationCallback;
     LocationSettingsRequest mLocationSettingRequest;
+<<<<<<< HEAD
     protected Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
+=======
+    LocationRequest mLocationRequest;
+>>>>>>> b1caeb556ae48c58410a23f07612e198dd4a0e3a
     boolean mRequestingLocationUpdates = false;
     TextView textView;
 
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //sets this activity's FusedLocationProviderClient
         textView = (TextView) findViewById(R.id.textView);
-        textView.setText("Latitude: \nLongitude: ");
+        textView.setText("Latitude: \nLongitude: "); //default text
 
         createLocationRequest();
 
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+<<<<<<< HEAD
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationRequest locationResult) {
@@ -75,20 +80,23 @@ public class MainActivity extends AppCompatActivity {
                     // ...
                 }
             }
+=======
+        mLocationCallback = new LocationCallback() { //creating callback
+//            @Override
+//            public void onLocationResult(LocationRequest locationResult) {
+//                for (Location location : locationResult.getLocations()) {
+//                    // Update UI with location data
+//                    // ...
+//                }
+//            }
+>>>>>>> b1caeb556ae48c58410a23f07612e198dd4a0e3a
         };
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mRequestingLocationUpdates) {
-            startLocationUpdates();
-        }
-    }
-
     private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
@@ -98,7 +106,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onResume() { // so that the GPS doesn't continue when in pause and again restarts when resuming the app 1
+        super.onResume();
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() { //2
         super.onPause();
         stopLocationUpdates();
     }
