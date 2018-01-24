@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
     private String mAddressOutput;
-    Button button;
-    TextView mLocationAddressTextView;
+    private Button button;
+    private TextView mLocationAddressTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +35,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mResultReceiver = new AddressResultReceiver(new Handler());
         button = (Button) findViewById(R.id.button);
         mLocationAddressTextView = (TextView) findViewById(R.id.textView);
 
 
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        //Got last known location
-                        if (location != null) {
-                            //Logic to handle location object
-                        }
-                    }
-                });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -64,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
         startService(intent);
     }
-
 
 
     class AddressResultReceiver extends ResultReceiver {
@@ -89,14 +86,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchAddressButtonHander(View view) {
+    private void fetchAddressButtonHandler(View view) {
 
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
-        mFusedLocationClient.getLastLocation()
+        mFusedLocationClient.getLastLocation() //getting location data
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -115,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // Start service and update UI to reflect new location
-                        startIntentService();
+                        startIntentService(); //
                         //updateUI();
 
                     }
@@ -123,7 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart() {
 
+        super.onStart();
+
+    }
 }
 
 
