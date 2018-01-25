@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    @SuppressWarnings("MissingPermission")
 
+
+    @SuppressWarnings("MissingPermission")
     private void fetchAddressButtonHandler(View view) {
 
        /* if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
