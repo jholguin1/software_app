@@ -22,10 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class MainActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient mFusedLocationClient;
-    private Location mLastKnownLocation;
     protected Location mLastLocation;
     private AddressResultReceiver mResultReceiver;
-    private String mAddressOutput;
+    private String mAddressOutput = "";
     private Button button;
     private TextView mLocationAddressTextView;
 
@@ -39,16 +38,10 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
         mLocationAddressTextView = (TextView) findViewById(R.id.textView);
 
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
-                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fetchAddressButtonHandler(view);
 
             }
         });
@@ -85,22 +78,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    @SuppressWarnings("MissingPermission")
 
     private void fetchAddressButtonHandler(View view) {
 
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
+       /* if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
-        }
+        }*/
 
         mFusedLocationClient.getLastLocation() //getting location data
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        mLastKnownLocation = location;
+                        mLastLocation = location;
 
                         // In some rare cases the location returned can be null
-                        if (mLastKnownLocation == null) {
+                        if (mLastLocation == null) {
                             return;
                         }
 
@@ -117,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
 
     }
 

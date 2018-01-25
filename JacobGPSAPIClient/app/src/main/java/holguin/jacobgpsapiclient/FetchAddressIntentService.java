@@ -30,6 +30,8 @@ public class FetchAddressIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        mReceiver = intent.getParcelableExtra(Constants.RECEIVER);//had to add
+
         String errorMessage = "";
 
         // Get the location passed to this service through an extra.
