@@ -11,6 +11,7 @@ import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,16 +28,18 @@ public class MainActivity extends AppCompatActivity {
     private String mAddressOutput = "";
     private Button button;
     private TextView mLocationAddressTextView;
+    private TextView mLocationCoordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //assigning values to our objects
         mResultReceiver = new AddressResultReceiver(new Handler());
         button = (Button) findViewById(R.id.button);
         mLocationAddressTextView = (TextView) findViewById(R.id.textView);
+        mLocationCoordinates = (TextView)findViewById(R.id.textView1);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void startIntentService() {
-        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        Intent intent = new Intent(this, FetchAddressIntentService.class); //creates and sends intent with extra constants
         intent.putExtra(Constants.RECEIVER, mResultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
         startService(intent);
@@ -64,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
+        protected void onReceiveResult(int resultCode, Bundle resultData) { //what to do when we receive results
 
             // Display the address string
             // or an error message sent from the intent service.
             mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-            mLocationAddressTextView.setText(mAddressOutput);
+            mLocationAddressTextView.setText(mAddressOutput); //EXAM - Set textview to latitude & longitude | Set it into the map
 
             // Show a toast message if an address was found.
             if (resultCode == Constants.SUCCESS_RESULT) {
@@ -80,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @SuppressWarnings("MissingPermission")
-    private void fetchAddressButtonHandler(View view) {
+    @SuppressWarnings("MissingPermission") //to view with tablets
+    private void fetchAddressButtonHandler(View view) { //what to do when we hit the button
 
        /* if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
                 && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
 
-                        if (!Geocoder.isPresent()) {
+                        if (!Geocoder.isPresent()) { //checks for geocoder
                             Toast.makeText(MainActivity.this,
                                     "no_geocoder_available",
                                     Toast.LENGTH_LONG).show();
