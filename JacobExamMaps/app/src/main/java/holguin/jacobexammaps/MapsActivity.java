@@ -33,19 +33,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     protected Location mLastLocation;
-    private AddressResultReceiver mResultReceiver;
-    private String mAddressOutput = "";
+    LatLng mLocationCoordinates;
 
     double latitude;
     double longitude;
 
+    @SuppressWarnings("MissingPermissions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this); //assigning values to our objects
-        mResultReceiver = new AddressResultReceiver(new Handler());
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -53,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //fused profiver client
+        //fused provider client
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -72,21 +71,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mLastLocation = location;
                         latitude = mLastLocation.getLatitude();
                         longitude = mLastLocation.getLongitude();
-
-                        // In some rare cases the location returned can be null
-                        if (mLastLocation == null) {
-                            return;
-                        }
-
-                        if (!Geocoder.isPresent()) { //checks for geocoder
-                            Toast.makeText(MapsActivity.this,
-                                    "no_geocoder_available",
-                                    Toast.LENGTH_LONG).show();
-                            return;
-                        }
+                        mLocationCoordinates = new LatLng(latitude, longitude); //testing variable
+                        addMarkerOnMap();
 
                         // Start service and update UI to reflect new location
-                        startIntentService(); //
+                        //addMarkerOnMap();
                         //updateUI();
 
                     }
@@ -108,92 +97,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        addMarkerOnMap();
+
 
     }
 
     protected void addMarkerOnMap(){
-        LatLng mLocationCoordinates = new LatLng(latitude, longitude); //testing variable
-        mMap.addMarker(new MarkerOptions().position(mLocationCoordinates).title("Maker on your position")); //places marker on GPS position
+
+        mMap.addMarker(new MarkerOptions().position(mLocationCoordinates).title("Marker on your position")); //places marker on GPS position
         mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocationCoordinates)); //used to center the screen on position
     }
-
-
-    // code from old GPS App
-
-
-    protected void startIntentService() {
-        Intent intent = new Intent(this, FetchAddressIntentService.class); //creates and sends intent with extra constants
-        intent.putExtra(Constants.RECEIVER, mResultReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
-        startService(intent);
-    }
-
-
-    class AddressResultReceiver extends ResultReceiver {
-        public AddressResultReceiver(Handler handler) {
-            super(handler);
-
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) { //what to do when we receive results
-
-            // Display the address string
-            // or an error message sent from the intent service.
-            mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-
-            // Show a toast message if an address was found.
-            if (resultCode == Constants.SUCCESS_RESULT) {
-                //showToast("address_found");
-            }
-
-        }
-    }
-
-
-//    @SuppressWarnings("MissingPermission") //to view with tablets
-//    private void fetchAddressHandler(View view) { //what to do when we hit the button
-//
-//       /* if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED //permission check
-//                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            return;
-//        }*/
-//
-//        mFusedLocationClient.getLastLocation() //getting location data
-//                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        mLastLocation = location;
-//
-//                        // In some rare cases the location returned can be null
-//                        if (mLastLocation == null) {
-//                            return;
-//                        }
-//
-//                        if (!Geocoder.isPresent()) { //checks for geocoder
-//                            Toast.makeText(MapsActivity.this,
-//                                    "no_geocoder_available",
-//                                    Toast.LENGTH_LONG).show();
-//                            return;
-//                        }
-//
-//                        // Start service and update UI to reflect new location
-//                        startIntentService(); //
-//                        //updateUI();
-//
-//                    }
-//                });
-//
-//
-//    }
-
-    @Override
-    public void onStart() {
-
-        super.onStart();
-
-    }
-
 
 }
