@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -39,8 +40,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151); //Will help change Latitude and Longitude
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng dreamLocation = new LatLng(64.157224, -24.016390); //Will help change Latitude and Longitude
+        mMap.addMarker(new MarkerOptions()
+                .position(dreamLocation)
+                .title("Dream Vacation Location")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+
+        LatLng initalLocation = new LatLng(66.25, -21.5);
+        mMap.addMarker(new MarkerOptions()
+                .position(initalLocation)
+                .draggable(true)
+                .snippet("Population: 4,137,400")
+                .title("Draggable location marker")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                .alpha(0.7f));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(dreamLocation));
     }
 }
