@@ -4,9 +4,11 @@
     <string name="show_password">Show Password</string>
     <string name="enter_password_and_see_how_strong_it_is">Enter Password and see how strong it is!</string>
     <string name="check_password">Check Password!</string>
-    <string name="welcome_to_my_passoword_cracker">Welcome to my Passoword Cracker!</string>
+    <string name="welcome_to_my_password_cracker">Welcome to my Password Cracker!</string>
     <string name="password_strength_strong">Password Strength: strong</string>
     <string name="password_used_quite_often">Password used: Quite Often</string>
     <string name="try_another_password">Try Another Password!</string>
+    <string name="how_strong_is_your_password">How strong is your Password?</string>
+    <string name="estimated_cracking_time">Estimated Cracking Time:</string>
 
 </resources>
